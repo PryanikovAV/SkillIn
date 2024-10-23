@@ -1,0 +1,18 @@
+version: '3.8'  # Указываем версию Docker Compose
+
+services:
+  db:
+    image: postgres:latest  # Определяем образ PostgreSQL
+    container_name: skillin-db
+    environment:
+      POSTGRES_DB: "skillin-db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5433:5432"  # Переадресация порта: локальный порт 5433 -> контейнерный 5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data  # Монтируем volume для хранения данных
+    restart: unless-stopped  # Автоматический перезапуск контейнера при сбое
+
+volumes:
+  skillin-pgdata:  # Определяем volume для хранения данных
