@@ -24,7 +24,6 @@ namespace SkillIn.Migrations
     {
         static SkillInContextFactory()
         {
-            // Включение старого поведения для обработки метки времени в Npgsql
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
@@ -40,7 +39,7 @@ namespace SkillIn.Migrations
                     connectionString,
                     options => options
                         .CommandTimeout(1000)
-                        .MigrationsAssembly("SkillIn.Migrations") // Исправлено на правильный проект миграций
+                        .MigrationsAssembly("SkillIn.Migrations")
                         .MigrationsHistoryTable("EntMigrations", "public"));
 
             return new SkillInContext(optionsBuilder.Options);
