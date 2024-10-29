@@ -26,16 +26,12 @@ namespace SkillIn.Entities
         // Фото
         public byte[]? Photo { get; set; } // ?
 
-
         public Guid CourseID { get; set; }
+        
         [ForeignKey(nameof(CourseID))]
         public virtual Course? Course { get; set; }
-
-
-        //public Guid ProjectID { get; set; }
-        //[ForeignKey(nameof(ProjectID))]
+  
         public virtual Project? Project { get; set; }
-
 
         public Guid FacultyID { get; set; }
         [ForeignKey(nameof(FacultyID))]

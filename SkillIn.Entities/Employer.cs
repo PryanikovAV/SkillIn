@@ -25,6 +25,6 @@ namespace SkillIn.Entities
         public string CompanyInfo { get; set; }
 
         // Список вакансий работодателя
-        private ICollection<Vacancy> Vacancies { get; set; }
+        public virtual ICollection<Vacancy> Vacancies { get; set; }
     }
 }

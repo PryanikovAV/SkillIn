@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillIn.Entities", "SkillIn.Entities\SkillIn.Entities.csproj", "{C5091065-FDA6-4519-ADAD-8DCF46AB7CF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillIn.Entities", "SkillIn.Entities\SkillIn.Entities.csproj", "{C5091065-FDA6-4519-ADAD-8DCF46AB7CF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillIn.Migrations", "SkillIn.Migrations\SkillIn.Migrations.csproj", "{F096B5F2-840E-402D-8424-5005A5404156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillIn.Migrations", "SkillIn.Migrations\SkillIn.Migrations.csproj", "{F096B5F2-840E-402D-8424-5005A5404156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillIn.API", "SkillIn.API\SkillIn.API.csproj", "{082D7994-0621-413F-92BD-075E8A9141AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F096B5F2-840E-402D-8424-5005A5404156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F096B5F2-840E-402D-8424-5005A5404156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F096B5F2-840E-402D-8424-5005A5404156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{082D7994-0621-413F-92BD-075E8A9141AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082D7994-0621-413F-92BD-075E8A9141AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082D7994-0621-413F-92BD-075E8A9141AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082D7994-0621-413F-92BD-075E8A9141AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
