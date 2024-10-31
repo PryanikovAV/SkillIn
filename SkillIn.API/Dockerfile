@@ -6,16 +6,17 @@ USER app
 WORKDIR /app
 EXPOSE 8080
 
+
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["SkillIn.Api/SkillIn.API.csproj", "SkillIn.Api/"]
+COPY ["SkillIn.Api/SkillIn.Api.csproj", "SkillIn.Api/"]
 COPY ["SkillIn.Entities/SkillIn.Entities.csproj", "SkillIn.Entities/"]
-RUN dotnet restore "./SkillIn.API/SkillIn.API.csproj"
+RUN dotnet restore "./SkillIn.Api/SkillIn.Api.csproj"
 COPY . .
 WORKDIR "/src/SkillIn.Api"
-RUN dotnet build "./SkillIn.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./SkillIn.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
@@ -26,4 +27,4 @@ RUN dotnet publish "./SkillIn.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SkillIn.API.dll"]
+ENTRYPOINT ["dotnet", "SkillIn.Api.dll"]

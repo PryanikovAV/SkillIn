@@ -12,8 +12,8 @@ using SkillIn.Entities;
 namespace SkillIn.Migrations.History
 {
     [DbContext(typeof(SkillInContext))]
-    [Migration("20241031085034_AddNewChanges")]
-    partial class AddNewChanges
+    [Migration("20241031200016_Migration1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

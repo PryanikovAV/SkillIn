@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillIn.Entities", "SkillIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillIn.Migrations", "SkillIn.Migrations\SkillIn.Migrations.csproj", "{F096B5F2-840E-402D-8424-5005A5404156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillIn.API", "SkillIn.API\SkillIn.API.csproj", "{082D7994-0621-413F-92BD-075E8A9141AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TEST.CreatePasswordSHA-512", "TEST.CreatePasswordSHA-512\TEST.CreatePasswordSHA-512.csproj", "{C5B26AA7-5717-4827-A046-59244281DD5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillIn.Api", "SkillIn.Api\SkillIn.Api.csproj", "{AA3C7043-AF20-40EF-981D-434B782FF573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,17 +18,17 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C5091065-FDA6-4519-ADAD-8DCF46AB7CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5091065-FDA6-4519-ADAD-8DCF46AB7CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5091065-FDA6-4519-ADAD-8DCF46AB7CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5091065-FDA6-4519-ADAD-8DCF46AB7CF1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F096B5F2-840E-402D-8424-5005A5404156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F096B5F2-840E-402D-8424-5005A5404156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F096B5F2-840E-402D-8424-5005A5404156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F096B5F2-840E-402D-8424-5005A5404156}.Release|Any CPU.Build.0 = Release|Any CPU
-		{082D7994-0621-413F-92BD-075E8A9141AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{082D7994-0621-413F-92BD-075E8A9141AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{082D7994-0621-413F-92BD-075E8A9141AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{082D7994-0621-413F-92BD-075E8A9141AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B26AA7-5717-4827-A046-59244281DD5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B26AA7-5717-4827-A046-59244281DD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B26AA7-5717-4827-A046-59244281DD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA3C7043-AF20-40EF-981D-434B782FF573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA3C7043-AF20-40EF-981D-434B782FF573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA3C7043-AF20-40EF-981D-434B782FF573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
