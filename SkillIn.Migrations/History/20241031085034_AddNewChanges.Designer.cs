@@ -2,21 +2,25 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SkillIn.Entities;
 
 #nullable disable
 
-namespace SkillIn.Migrations.Migrations
+namespace SkillIn.Migrations.History
 {
     [DbContext(typeof(SkillInContext))]
-    partial class SkillInContextModelSnapshot : ModelSnapshot
+    [Migration("20241031085034_AddNewChanges")]
+    partial class AddNewChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("ent")
                 .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
@@ -33,7 +37,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasKey("ChatID");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chats", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Course", b =>
@@ -47,7 +51,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Discipline", b =>
@@ -66,7 +70,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.ToTable("Disciplines");
+                    b.ToTable("Disciplines", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Faculty", b =>
@@ -80,7 +84,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Favorite", b =>
@@ -101,7 +105,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Favorites");
+                    b.ToTable("Favorites", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Grade", b =>
@@ -125,7 +129,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.HardSkill", b =>
@@ -141,7 +145,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HardSkills");
+                    b.ToTable("HardSkills", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Message", b =>
@@ -174,7 +178,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("SenderID");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Olympiad", b =>
@@ -200,7 +204,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.ToTable("Olympiads");
+                    b.ToTable("Olympiads", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Post", b =>
@@ -223,7 +227,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Project", b =>
@@ -250,7 +254,7 @@ namespace SkillIn.Migrations.Migrations
                     b.HasIndex("StudentID")
                         .IsUnique();
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.SoftSkill", b =>
@@ -266,7 +270,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("SoftSkills");
+                    b.ToTable("SoftSkills", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Speciality", b =>
@@ -285,7 +289,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("FacultyID");
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.StudentHardSkill", b =>
@@ -300,7 +304,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("HardSkillId");
 
-                    b.ToTable("StudentHardSkills");
+                    b.ToTable("StudentHardSkills", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.StudentSoftSkill", b =>
@@ -315,7 +319,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("SoftSkillId");
 
-                    b.ToTable("StudentSoftSkills");
+                    b.ToTable("StudentSoftSkills", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.User", b =>
@@ -349,7 +353,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("ChatID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", "ent");
 
                     b.HasDiscriminator().HasValue("User");
 
@@ -374,7 +378,7 @@ namespace SkillIn.Migrations.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserPasswords");
+                    b.ToTable("UserPasswords", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Vacancy", b =>
@@ -405,7 +409,7 @@ namespace SkillIn.Migrations.Migrations
 
                     b.HasIndex("EmployerID");
 
-                    b.ToTable("Vacancies");
+                    b.ToTable("Vacancies", "ent");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Employer", b =>
@@ -624,7 +628,7 @@ namespace SkillIn.Migrations.Migrations
             modelBuilder.Entity("SkillIn.Entities.Vacancy", b =>
                 {
                     b.HasOne("SkillIn.Entities.Employer", "Employer")
-                        .WithMany()
+                        .WithMany("Vacancies")
                         .HasForeignKey("EmployerID")
                         .IsRequired();
 
@@ -678,6 +682,11 @@ namespace SkillIn.Migrations.Migrations
             modelBuilder.Entity("SkillIn.Entities.User", b =>
                 {
                     b.Navigation("Password");
+                });
+
+            modelBuilder.Entity("SkillIn.Entities.Employer", b =>
+                {
+                    b.Navigation("Vacancies");
                 });
 
             modelBuilder.Entity("SkillIn.Entities.Student", b =>

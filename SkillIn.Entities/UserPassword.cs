@@ -21,6 +21,6 @@ namespace SkillIn.Entities
 
         [ForeignKey(nameof(UserId))]
         [InverseProperty(nameof(User.Password))]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }
