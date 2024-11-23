@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TEST.CreatePasswordSHA-512"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillIn.Api", "SkillIn.Api\SkillIn.Api.csproj", "{AA3C7043-AF20-40EF-981D-434B782FF573}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "SkillIn.Frontend", "SkillIn.Frontend\SkillIn.Frontend.esproj", "{56E2C325-8B19-4063-A2FB-8F525E2D1093}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,12 @@ Global
 		{AA3C7043-AF20-40EF-981D-434B782FF573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA3C7043-AF20-40EF-981D-434B782FF573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA3C7043-AF20-40EF-981D-434B782FF573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E2C325-8B19-4063-A2FB-8F525E2D1093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E2C325-8B19-4063-A2FB-8F525E2D1093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E2C325-8B19-4063-A2FB-8F525E2D1093}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{56E2C325-8B19-4063-A2FB-8F525E2D1093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E2C325-8B19-4063-A2FB-8F525E2D1093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E2C325-8B19-4063-A2FB-8F525E2D1093}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

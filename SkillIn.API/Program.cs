@@ -42,10 +42,40 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 services.AddAuthorization();
 
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:5175")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
+
 var app = builder.Build();
 
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+// Проверка подключения к БД
+try
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<SkillInContext>();
+        db.Database.EnsureCreated();
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Database connection error: {ex.Message}");
+}
 
 app.MapGet("/", () => "SkillIn Service");  // <-- Входящий GET запрос по корневому адресному пути возвращает SkillIn Service
 
@@ -58,15 +88,11 @@ app.MapPost("/login/{login}", async (string login, [FromBody] string password, S
 {
     // 1. Находим пользователя по Login
     var user = await db.Users.FirstOrDefaultAsync(u => u.Login == login);
-    
-    if (user is null)
-        return Results.Unauthorized();
+    if (user is null) return Results.Unauthorized();
 
     // 2. Находим запись пароля по UserId
     var passwordEntry = await db.UserPasswords.FirstOrDefaultAsync(p => p.UserId == user.Id);
-    
-    if (passwordEntry is null)
-        return Results.Unauthorized();
+    if (passwordEntry is null) return Results.Unauthorized();
 
     // 3. Хешируем введённый пароль и сравниваем с сохранённым хешем
     byte[] hash = SHA512.HashData(Encoding.UTF8.GetBytes(password));
