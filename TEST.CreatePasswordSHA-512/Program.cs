@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-string password = "password123"; // <-- Придумать и вставить пароль
+string password = "password1234"; // <-- Придумать и вставить пароль
 byte[] hash = SHA512.HashData(Encoding.UTF8.GetBytes(password));
 string hexPassword = BitConverter.ToString(hash).Replace("-", "");
 
