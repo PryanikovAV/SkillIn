@@ -16,7 +16,7 @@
       "environmentVariables": {
         "ASPNETCORE_HTTP_PORTS": "8080"
       },
-      "httpPort": 5002,
+      "httpPort": 5010,
       "useSSL": false
     }
   },

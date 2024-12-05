@@ -9,9 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 using SkillIn.Entities;
-using SkillIn.API;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
+using SkillIn.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +18,7 @@ var configuration = builder.Configuration;
 
 // Подключение к БД
 services.AddDbContext<SkillInContext>(opt =>
-    opt.UseNpgsql(configuration.GetConnectionString("SkillInDb"))); // <-- DefaultConnection
+    opt.UseNpgsql(configuration.GetConnectionString("SkillInDb")));
 
 // Настройка аутентификации с JWT
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -31,11 +29,9 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-
             ValidIssuer = configuration["Jwt:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
-
             ValidateAudience = false
         };
     });
@@ -44,14 +40,12 @@ services.AddAuthorization();
 
 services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(policy =>
     {
-        builder.WithOrigins("http://localhost:5173",
-            "http://localhost:5174",
-            "http://localhost:5175")
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -62,65 +56,83 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 // Проверка подключения к БД
-try
+using (var scope = app.Services.CreateScope())
 {
-    using (var scope = app.Services.CreateScope())
-    {
-        var db = scope.ServiceProvider.GetRequiredService<SkillInContext>();
-        db.Database.EnsureCreated();
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Database connection error: {ex.Message}");
+    var db = scope.ServiceProvider.GetRequiredService<SkillInContext>();
+    db.Database.EnsureCreated();
 }
 
-app.MapGet("/", () => "SkillIn Service");  // <-- Входящий GET запрос по корневому адресному пути возвращает SkillIn Service
+app.MapGet("/", () => "SkillIn Service");
 
-
+// Подключение API для пользователей
 app.MapGroup("/users").MapUsersApi().RequireAuthorization();
-//app.MapGroup("/roles").MapRolesApi().RequireAuthorization(a => a.RequireRole("Admin"));
 
-// Маршрут для логина с проверкой пароля в отдельной таблице
+// Авторизация (логин)
 app.MapPost("/login/{login}", async (string login, [FromBody] string password, SkillInContext db) =>
 {
-    // 1. Находим пользователя по Login
     var user = await db.Users.FirstOrDefaultAsync(u => u.Login == login);
     if (user is null) return Results.Unauthorized();
 
-    // 2. Находим запись пароля по UserId
     var passwordEntry = await db.UserPasswords.FirstOrDefaultAsync(p => p.UserId == user.Id);
     if (passwordEntry is null) return Results.Unauthorized();
 
-    // 3. Хешируем введённый пароль и сравниваем с сохранённым хешем
-    byte[] hash = SHA512.HashData(Encoding.UTF8.GetBytes(password));
-    string hexPassword = BitConverter.ToString(hash).Replace("-", "");
+    var hash = SHA512.HashData(Encoding.UTF8.GetBytes(password));
+    var hexPassword = BitConverter.ToString(hash).Replace("-", "");
 
-    if (hexPassword != passwordEntry.PasswordHash)
-        return Results.Unauthorized();
+    if (hexPassword != passwordEntry.PasswordHash) return Results.Unauthorized();
 
-    // 4. Что входит в токен
     var claims = new List<Claim>
     {
         new(ClaimTypes.Name, login),
         new("id", user.Id.ToString()),
-        new(ClaimTypes.Role, user.Role.ToString()) // <-- не нужна проверка if !=, так как Required
+        new(ClaimTypes.Role, user.Role.ToString())
     };
 
-    // 5. Создание JWT-токена
     var jwt = new JwtSecurityToken(
         claims: claims,
         issuer: configuration["Jwt:Issuer"],
-        expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(5)), // Время "жизни" токена
-        signingCredentials:
-            new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
-                SecurityAlgorithms.HmacSha256));
+        expires: DateTime.UtcNow.AddMinutes(5),
+        signingCredentials: new SigningCredentials(
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
+            SecurityAlgorithms.HmacSha256));
 
     return Results.Ok(new JwtSecurityTokenHandler().WriteToken(jwt));
 });
 
+// Регистрация
+app.MapPost("/register", async (RegisterDto registerDto, SkillInContext db) =>
+{
+    Console.WriteLine($"Register attempt: {registerDto.Login}, {registerDto.Email}"); // Отладка
+
+    if (await db.Users.AnyAsync(u => u.Login == registerDto.Login || u.Email == registerDto.Email))
+    {
+        return Results.BadRequest("Логин или email уже используются.");
+    }
+
+    var user = new User
+    {
+        Id = Guid.NewGuid(),
+        Login = registerDto.Login,
+        Email = registerDto.Email,
+        Role = UserRole.Student
+    };
+
+    var hash = SHA512.HashData(Encoding.UTF8.GetBytes(registerDto.Password));
+    var hexPassword = BitConverter.ToString(hash).Replace("-", "");
+
+    var passwordEntry = new UserPassword
+    {
+        Id = Guid.NewGuid(),
+        UserId = user.Id,
+        PasswordHash = hexPassword
+    };
+
+    db.Users.Add(user);
+    db.UserPasswords.Add(passwordEntry);
+    await db.SaveChangesAsync();
+
+    return Results.Ok("Пользователь успешно зарегистрирован.");
+});
 
 app.Run();
