@@ -138,28 +138,13 @@
         gap: 10px;
     }
 
-    .stay-logged-in {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin: 30px 0;
-    }
-
-        .stay-logged-in input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-        }
-
-        .stay-logged-in label {
-            font-size: 14px;
-            color: black;
-        }
 
     .register-button {
         width: 300px;
         height: 50px;
         padding: 10px;
         margin-left: 120px;
+        margin-top: 30px;
         background-color: black;
         color: white;
         border-radius: 10px;

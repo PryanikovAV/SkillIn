@@ -12,5 +12,6 @@ export default defineConfig({
     server: {
         port: 5173, // Указываем основной порт
         strictPort: true, // Завершаем процесс, если порт 5173 недоступен
+        hmr: true,
     },
 });

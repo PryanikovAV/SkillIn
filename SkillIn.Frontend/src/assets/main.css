@@ -1,35 +1,48 @@
-@import './base.css';
+:root {
+  --layout-topbar-hight: 4rem;
+  --layout-frame: 1rem;
+}
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+html {
+  font-size: 1rem;
+}
+
+body {
+  font-family: var(--font-family);
   font-weight: normal;
+  background: var(--surface-ground);
+  color: var(--text-color);
+  padding: 0;
+  margin: 0;
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+p {
+  line-height: 1.75;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.card {
+  position: fixed;
+  background: var(--surface-card);
+  padding: 100rem;
+  border-radius: 2rem;
+  margin-bottom: 5rem;
+  border: 2px black;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.layout-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--layout-frame) var(--layout-frame) 0.5rem;
+  background: var(--surface-ground);
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.layout-content {
+  padding-top: calc(var(--layout-topbar-hight) + 2*var(--layout-frame));
+  padding-left: var(--layout-sidebar-width);
+  padding-right: var(--layout-frame);
 }
